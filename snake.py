@@ -1,7 +1,6 @@
-from pickletools import UP_TO_NEWLINE
 from turtle import Turtle, Screen
 
-STARTING_POSITION = [0, -20, -40]
+STARTING_POSITION = [(0, 0), (-20, 0), (-40, 0)]
 MOVE_DISTANCE = 20
 UP = 90
 DOWN = 270
@@ -17,12 +16,17 @@ class Snake:
         
     def create_snake(self):        
         for position in STARTING_POSITION:
-            segment = Turtle("square")
-            segment.color("white")
-            segment.penup()
-            segment.goto(position, 0)
-            self.segments.append(segment)
+            self.add_segment(position)
 
+    def add_segment(self, position):
+        segment = Turtle("square")
+        segment.color("white")
+        segment.penup()
+        segment.goto(position)
+        self.segments.append(segment)
+
+    def extend(self):
+        self.add_segment(self.segments[-1].position())
 
     def move(self):
         for seg in range(len(self.segments) - 1, 0, -1):
